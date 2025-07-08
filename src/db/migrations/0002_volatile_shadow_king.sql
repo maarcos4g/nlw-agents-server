@@ -1,0 +1,1 @@
+ALTER TABLE "rooms" RENAME COLUMN "text" TO "description";

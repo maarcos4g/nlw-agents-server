@@ -8,6 +8,20 @@
       "when": 1751991889050,
       "tag": "0000_abnormal_george_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752007065920,
+      "tag": "0001_fair_meteorite",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752007664730,
+      "tag": "0002_volatile_shadow_king",
+      "breakpoints": true
     }
   ]
 }
