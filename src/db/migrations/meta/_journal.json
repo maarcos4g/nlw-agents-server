@@ -22,6 +22,13 @@
       "when": 1752007664730,
       "tag": "0002_volatile_shadow_king",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752064680895,
+      "tag": "0003_nice_spot",
+      "breakpoints": true
     }
   ]
 }
