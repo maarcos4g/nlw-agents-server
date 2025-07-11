@@ -16,6 +16,7 @@ import { uploadAudio } from "./routes/upload-audio.ts";
 import { createUser } from "./routes/create-user.ts";
 import { sendAuthenticationCode } from "./routes/send-authentication-code.ts";
 import { validateAuthenticationCode } from "./routes/validate-code.ts";
+import { getProfile } from "./routes/get-profile.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -45,6 +46,7 @@ app.register(uploadAudio)
 app.register(createUser)
 app.register(sendAuthenticationCode)
 app.register(validateAuthenticationCode)
+app.register(getProfile)
 
 app.listen({
   port: env.PORT,
