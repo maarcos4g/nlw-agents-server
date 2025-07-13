@@ -6,7 +6,7 @@ import {
   serializerCompiler,
   validatorCompiler,
   type ZodTypeProvider
-} from 'fastify-type-provider-zod'
+} from 'fastify-type-provider-zod';
 import { env } from "../env.ts";
 import { getRooms } from "./routes/get-rooms.ts";
 import { createRoom } from "./routes/create-room.ts";
@@ -17,17 +17,18 @@ import { createUser } from "./routes/create-user.ts";
 import { sendAuthenticationCode } from "./routes/send-authentication-code.ts";
 import { validateAuthenticationCode } from "./routes/validate-code.ts";
 import { getProfile } from "./routes/get-profile.ts";
+import { getRoomByCode } from "./routes/get-room-by-code.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
 app.register(fastifyCors, {
   origin: env.FRONTEND_URL,
-  methods: ['GET', 'POST', 'PATCH', 'DELETE']
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE']
 })
 
 app.register(fastifyMultipart)
 app.register(fastifyJwt, {
-  secret: 'uifeuygugwhwquihui7y8y814yy8uhu'
+  secret: env.JWT_SECRET,
 })
 
 app.setSerializerCompiler(serializerCompiler)
@@ -47,6 +48,7 @@ app.register(createUser)
 app.register(sendAuthenticationCode)
 app.register(validateAuthenticationCode)
 app.register(getProfile)
+app.register(getRoomByCode)
 
 app.listen({
   port: env.PORT,

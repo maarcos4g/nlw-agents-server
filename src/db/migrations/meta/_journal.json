@@ -50,6 +50,34 @@
       "when": 1752162133254,
       "tag": "0006_uneven_lockheed",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1752247714813,
+      "tag": "0007_careful_pretty_boy",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1752247735714,
+      "tag": "0008_certain_crusher_hogan",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1752247936119,
+      "tag": "0009_aspiring_toad",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1752248287301,
+      "tag": "0010_talented_logan",
+      "breakpoints": true
     }
   ]
 }
