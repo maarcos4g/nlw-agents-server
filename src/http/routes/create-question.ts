@@ -4,9 +4,12 @@ import { schema } from "../../db/schema/index.ts";
 import { z } from "zod/v4";
 import { generateAnswer, generateEmbeddings } from "../../services/gemini.ts";
 import { and, eq, sql } from "drizzle-orm";
+import { auth } from "../middlewares/auth.ts";
 
 export const createQuestion: FastifyPluginCallbackZod = (app) => {
-  app.post(
+  app
+  .register(auth)
+  .post(
     '/rooms/:roomId/questions',
     {
       schema: {
@@ -19,6 +22,8 @@ export const createQuestion: FastifyPluginCallbackZod = (app) => {
       }
     },
     async (request, reply) => {
+      const currentUserId = await request.getCurrentUserId()
+
       const { question } = request.body
       const { roomId } = request.params
 
@@ -52,7 +57,8 @@ export const createQuestion: FastifyPluginCallbackZod = (app) => {
         .values({
           question,
           roomId,
-          answer
+          answer,
+          senderId: currentUserId,
         }).returning()
 
       const insertedQuestion = result[0]

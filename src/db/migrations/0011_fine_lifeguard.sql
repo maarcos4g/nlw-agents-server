@@ -1,0 +1,2 @@
+ALTER TABLE "questions" ADD COLUMN "sender_id" uuid;--> statement-breakpoint
+ALTER TABLE "questions" ADD CONSTRAINT "questions_sender_id_users_id_fk" FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
