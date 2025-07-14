@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai'
 import { env } from '../env.ts'
+import { ClientError } from '../http/_errors/client-error.ts'
 
 const gemini = new GoogleGenAI({
   apiKey: env.GEMINI_API_KEY,
@@ -24,7 +25,7 @@ export async function transcribeAudio(audioAsBase64: string, mimeType: string) {
   })
 
   if (!response.text) {
-    throw new Error('Não foi possível transcrever o áudio')
+    throw new ClientError('Não foi possível transcrever o áudio')
   }
 
   return response.text
@@ -40,7 +41,7 @@ export async function generateEmbeddings(text: string) {
   })
 
   if (!response.embeddings?.[0].values) {
-    throw new Error('Não foi possível gerar os embeddings')
+    throw new ClientError('Não foi possível gerar os embeddings')
   }
 
   return response.embeddings[0].values
@@ -77,7 +78,7 @@ export async function generateAnswer(question: string, transcription: string[]) 
   })
 
   if (!response.text) {
-    throw new Error('Falha ao gerar a resposta pelo Gemini.')
+    throw new ClientError('Falha ao gerar a resposta pelo Gemini.')
   }
 
   return response.text

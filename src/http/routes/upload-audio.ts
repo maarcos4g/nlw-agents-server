@@ -3,6 +3,7 @@ import { z } from "zod/v4";
 import { generateEmbeddings, transcribeAudio } from "../../services/gemini.ts";
 import { db } from "../../db/connection.ts";
 import { schema } from "../../db/schema/index.ts";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const uploadAudio: FastifyPluginCallbackZod = (app) => {
   app.post(
@@ -19,7 +20,7 @@ export const uploadAudio: FastifyPluginCallbackZod = (app) => {
       const audio = await request.file()
 
       if (!audio) {
-        throw new Error('Audio file is required')
+        throw new ClientError('Audio file is required')
       }
 
       const audioBuffer = await audio.toBuffer()
@@ -41,7 +42,7 @@ export const uploadAudio: FastifyPluginCallbackZod = (app) => {
       const chunk = result[0]
 
       if (!chunk) {
-        throw new Error('Erro ao salvar chunk de áudio.')
+        throw new ClientError('Erro ao salvar chunk de áudio.')
       }
 
       return reply.status(201).send({ chunkId: chunk.id })

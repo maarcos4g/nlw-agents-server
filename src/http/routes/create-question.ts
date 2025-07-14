@@ -5,6 +5,7 @@ import { z } from "zod/v4";
 import { generateAnswer, generateEmbeddings } from "../../services/gemini.ts";
 import { and, eq, sql } from "drizzle-orm";
 import { auth } from "../middlewares/auth.ts";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const createQuestion: FastifyPluginCallbackZod = (app) => {
   app
@@ -64,7 +65,7 @@ export const createQuestion: FastifyPluginCallbackZod = (app) => {
       const insertedQuestion = result[0]
 
       if (!insertedQuestion) {
-        throw new Error('Failed to create new question')
+        throw new ClientError('Failed to create new question')
       }
 
       return reply.status(201).send({

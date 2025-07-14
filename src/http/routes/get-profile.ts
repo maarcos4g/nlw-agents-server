@@ -3,6 +3,7 @@ import { db } from "../../db/connection.ts";
 import { schema } from "../../db/schema/index.ts";
 import { eq } from "drizzle-orm";
 import { auth } from "../middlewares/auth.ts";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const getProfile: FastifyPluginCallbackZod = (app) => {
   app
@@ -25,7 +26,7 @@ export const getProfile: FastifyPluginCallbackZod = (app) => {
         const user = result[0]
 
         if (!user) {
-          throw new Error('Error while geting user')
+          throw new ClientError('Error while getting user')
         }
 
         return reply.send({ user })

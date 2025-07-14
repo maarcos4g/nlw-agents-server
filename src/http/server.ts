@@ -18,6 +18,7 @@ import { sendAuthenticationCode } from "./routes/send-authentication-code.ts";
 import { validateAuthenticationCode } from "./routes/validate-code.ts";
 import { getProfile } from "./routes/get-profile.ts";
 import { getRoomByCode } from "./routes/get-room-by-code.ts";
+import { errorHandler } from "../error-handler.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -49,6 +50,8 @@ app.register(sendAuthenticationCode)
 app.register(validateAuthenticationCode)
 app.register(getProfile)
 app.register(getRoomByCode)
+
+app.setErrorHandler(errorHandler)
 
 app.listen({
   port: env.PORT,

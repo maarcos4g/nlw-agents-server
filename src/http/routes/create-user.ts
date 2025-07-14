@@ -3,6 +3,7 @@ import { db } from "../../db/connection.ts";
 import { schema } from "../../db/schema/index.ts";
 import { z } from "zod/v4";
 import { eq } from "drizzle-orm";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const createUser: FastifyPluginCallbackZod = (app) => {
   app.post(
@@ -39,7 +40,7 @@ export const createUser: FastifyPluginCallbackZod = (app) => {
       const insertedUser = result[0]
 
       if (!insertedUser) {
-        throw new Error('Failed to create new user')
+        throw new ClientError('Failed to create new user')
       }
 
       return reply.status(201).send({})

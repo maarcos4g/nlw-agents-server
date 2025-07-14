@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { brevo } from "../../services/brevo.ts";
 import { render } from "@react-email/render";
 import { SendAuthenticationCodeTemplate } from "../../mail/templates/send-authentication-code.tsx";
+import { UnauthorizedError } from "../_errors/unauthorized-error.ts";
 
 export const sendAuthenticationCode: FastifyPluginCallbackZod = (app) => {
   app.post(
@@ -32,7 +33,7 @@ export const sendAuthenticationCode: FastifyPluginCallbackZod = (app) => {
         .where(eq(schema.users.email, email))
 
       if (!existingUser[0]) {
-        throw new Error('User not exist')
+        throw new UnauthorizedError('User not exist')
       }
 
       const user = existingUser[0]

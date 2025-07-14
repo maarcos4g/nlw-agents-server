@@ -4,6 +4,7 @@ import { schema } from "../../db/schema/index.ts";
 import { z } from "zod/v4";
 import { auth } from "../middlewares/auth.ts";
 import { generateRoomCode } from "../../utils/generate-room-code.ts";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const createRoom: FastifyPluginCallbackZod = (app) => {
   app
@@ -36,7 +37,7 @@ export const createRoom: FastifyPluginCallbackZod = (app) => {
         const insertedRoom = result[0]
 
         if (!insertedRoom) {
-          throw new Error('Failed to create new room')
+          throw new ClientError('Failed to create new room')
         }
 
         return reply.status(201).send({

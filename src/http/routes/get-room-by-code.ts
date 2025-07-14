@@ -4,6 +4,7 @@ import { schema } from "../../db/schema/index.ts";
 import { z } from "zod/v4";
 import { eq } from "drizzle-orm";
 import { auth } from "../middlewares/auth.ts";
+import { ClientError } from "../_errors/client-error.ts";
 
 export const getRoomByCode: FastifyPluginCallbackZod = (app) => {
   app
@@ -33,6 +34,10 @@ export const getRoomByCode: FastifyPluginCallbackZod = (app) => {
         .where(eq(schema.rooms.code, roomCode))
 
       const room = results[0]
+
+      if (!room) {
+        throw new ClientError('Room does not exist')
+      }
 
       return reply.send({ room })
     })
